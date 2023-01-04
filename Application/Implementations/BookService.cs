@@ -15,6 +15,11 @@ namespace Application.Implementations
 
         public void CreateBook(Book book)
         {
+            // Upper case first letter
+            book.Title = char.ToUpper(book.Title[0]) + book.Title.Substring(1);
+
+            book.Author = char.ToUpper(book.Author[0]) + book.Author.Substring(1);
+
             _bookRepository.CreateBook(book);
         }
 

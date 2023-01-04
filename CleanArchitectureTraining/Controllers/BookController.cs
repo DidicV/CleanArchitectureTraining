@@ -49,7 +49,12 @@ namespace CleanArchitectureTraining.Controllers
         {
             var book = _bookService.GetBookById(id);
 
-            return View(book);
+            if (book != null)
+            {
+                return View(book);
+            }
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -71,7 +76,12 @@ namespace CleanArchitectureTraining.Controllers
         {
             var book = _bookService.GetBookById(id);
 
-            return View(book);
+            if (book != null) 
+            {
+                return View(book);
+            }
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost, ActionName("Delete")]
@@ -79,7 +89,10 @@ namespace CleanArchitectureTraining.Controllers
         {
             var book = _bookService.GetBookById(id);
 
-            _bookService.DeleteBook(book);
+            if (book != null)
+            {
+                _bookService.DeleteBook(book);
+            }
 
             return RedirectToAction("Index");
         }
