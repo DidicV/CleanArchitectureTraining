@@ -1,4 +1,8 @@
+using Application.Implementations;
+using Application.Interfaces;
 using Infrastructure;
+using Infrastructure.Implementations;
+using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +17,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(
         options.UseSqlServer(
             connectionString,
             x => x.MigrationsAssembly("Infrastructure")));
+
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IBookService, BookService>();
 
 var app = builder.Build();
 
@@ -33,6 +40,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Book}/{action=Index}/{id?}");
 
 app.Run();
